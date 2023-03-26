@@ -2,19 +2,20 @@
   <q-page-container>
     <q-page class="flex bg-image flex-center">
       <q-card
-        v-bind:style="$q.screen.lt.sm ? { width: '80%' } : { width: '30%' }"
-        class="card shadow-9"
+        v-bind:style="$q.screen.lt.sm ? { width: '100%' } : { width: '60%' }"
+        class="card shadow-8"
       >
         <q-card-section>
           <div class="text-center q-ma-lg">
-            <q-img src="../assets/default.png" style="width: 100px" /><br />
-            Acceso
+            <q-img 
+              height="300px"
+              src="../assets/logo_barber-sn-fondo.png"
+              style="max-width: 300px"/><br />
           </div>
           <div class="text-center q-ma-lg">
-            <div class="col text-h6 ellipsis">FARMACIA</div>
+            <div class="col text-h5 ellipsis">THE MONKEY'S BARBER</div>
           </div>
-        </q-card-section>
-        <q-card-section>
+
           <q-form class="q-gutter-lg">
             <div class="flex flex-center">
               <q-input
@@ -46,11 +47,6 @@
                   />
                 </template>
               </q-input>
-            </div>
-            <div class="flex flex-center">
-              <div class="q-gutter-sm">
-                <q-checkbox v-model="rememberMe" label="Recuérdame" />
-              </div>
             </div>
             <div class="text-center">
               <q-btn
