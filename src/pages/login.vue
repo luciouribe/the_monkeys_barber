@@ -10,10 +10,11 @@
             <q-img 
               height="300px"
               src="../assets/logo_barber-sn-fondo.png"
-              style="max-width: 300px"/><br />
-          </div>
-          <div class="text-center q-ma-lg">
-            <div class="col text-h5 ellipsis">THE MONKEY'S BARBER</div>
+              style="max-width: 300px"/>
+              <q-img 
+              height="300px"
+              src="../assets/wendys_completo.png"
+              style="max-width: 400px"/><br><br><br><br>
           </div>
 
           <q-form class="q-gutter-lg">
