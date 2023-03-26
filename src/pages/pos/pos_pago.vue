@@ -8,7 +8,7 @@
                     Regresar
                 </q-btn>
             </div>
-            <div class="col-6 q-pa-md text-center" style="font-size: 25px;">Pago</div>
+            <div class="col-6 q-pa-md text-center" style="font-size: 25px;">Registro de pago</div>
             <div class="col-3 q-pa-md text-right">
                 <q-btn color="secondary" @click="new_order" :disabled="!state_order">Validar
                     <q-icon name="keyboard_arrow_right" class="q-pl-xs"></q-icon>
@@ -31,17 +31,17 @@
                         <q-icon name="account_circle" style="font-size: 30px"></q-icon>
                         Cliente
                     </q-btn>-->
-                    <q-item tag="label" v-ripple class="q-pa-lg q-ma-lg bg-white shadow-1 rounded-borders" style="width:100%">
+                    <!-- <q-item tag="label" v-ripple class="q-pa-lg q-ma-lg bg-white shadow-1 rounded-borders" style="width:100%">
                         <q-item-section avatar>
                             <q-checkbox v-model="factura" val="orange" color="secondary" />
                         </q-item-section>
-                        <q-item-section>
+                       <q-item-section>
                             <q-item-label>
                                 <q-icon name="description" style="font-size: 30px"></q-icon> Factura
                             </q-item-label>
                         </q-item-section>
                     </q-item>
-
+                -->
                 </div>
             </div>
             <div class="col-8 q-pa-md text-center">
@@ -50,7 +50,7 @@
                         <q-markup-table>
                             <thead>
                                 <tr>
-                                    <th class="text-left">Debe</th>
+                                    <th class="text-left">Total</th>
                                     <th class="text-right">Entregado</th>
                                     <th class="text-right">Cambio</th>
                                     <th class="text-right">Metodo</th>
@@ -58,8 +58,9 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <q-tr v-for="(item, key) in rows_pago" @click="selectedItem(rows_pago,item)">
-                                    <q-td key="debe" :style="item.style">
+                                <q-tr v-for="(item, key) in rows_pago" 
+                                    @click="selectedItem(rows_pago,item)">
+                                    <q-td key="total" :style="item.style">
                                         {{ item.debe }}
                                     </q-td>
                                     <q-td key="entregado" :style="item.style_edit">
@@ -69,7 +70,7 @@
                                         </q-popup-edit>
                                     </q-td>
                                     <q-td key="cambio" :style="item.style">
-                                        {{ item.cambio }}
+                                        {{ total_calculo_order }}
                                     </q-td>
                                     <q-td key="metodo" :style="item.style">
                                         {{ item.metodo }}
@@ -80,7 +81,7 @@
                                 </q-tr>
 
                                 <div style="font-size: 18px;">
-                                    Debe: {{total_calculo_order}}
+                                    
                                 </div>
                             </tbody>
 
@@ -276,10 +277,10 @@ export default {
             state_validate: true,
             configuracion: JSON.parse(sessionStorage.getItem("PosConfiguracion")),
             columns_pago: [{
-                    name: "debe",
+                    name: "total",
                     align: "left",
-                    label: "Debe",
-                    field: "debe",
+                    label: "Total",
+                    field: "total",
                 },
                 {
                     name: "entregado",
@@ -338,17 +339,17 @@ export default {
             let importes2 = []
             this.rows_pago.forEach(element => importes2.push(Number(element.entregado)));
             var sum2 = lodash.sum(importes2);
-            let total_cambio = sum - sum2
+            let total_cambio = sum2 - sum 
             return total_cambio
         },
         state_order() {
             let total_cambio = this.total_calculo_order
             if (total_cambio > 0) {
-                return false
+                return true
             } else if (total_cambio === 0) {
                 return true
             } else if (total_cambio < 0) {
-                return true
+                return false
             }
         },
         total_calculo_entregado() {
@@ -376,7 +377,6 @@ export default {
         num_teclado() {
             let no_teclado = this.teclado_cal.join('')
             if (this.rows_pago.length === 0) {
-                let selectItemOn = sessionStorage.getItem("selectedItem");
 
                 return 0
             } else {
@@ -394,7 +394,7 @@ export default {
     },
     methods: {
         ...mapActions("pos", ["fetchPosSession", "fetchPosProductos", "fetchPosProductosId", "postNewOrder"]),
-        removeProduct(arr) {
+        removeProduct() {
             this.orden_line.splice(-1, 1)
         },
         new_order() {
@@ -490,7 +490,6 @@ export default {
             } else if (value == 'ArrowDown') {
                 let itemAct = sessionStorage.getItem("selectedItem");
                 if (this.rows_pago.length === Number(itemAct) + 1) {
-                    var va = 0
                 } else {
                     let itemIndex = Number(itemAct) + 1
                     this.selectedItemArrow(itemIndex)
