@@ -1,20 +1,31 @@
 <template>
   <q-layout view="hHh Lpr fFf">
     <q-header elevated>
-      <q-toolbar class="bg-visuel text-white q-px-lg">
-        <img src="../assets/default.png" height="40" />
+      <q-toolbar class="bg-visuel text-black q-px-lg">
+        <img src="../assets/logo_barber-sn-fondo.png" height="80" />
         <q-toolbar-title>
           <div
             @click="GoHome"
             clickable
-            class="text-white q-pt-sm"
+            class="text-black q-pt-sm"
             :hidden="$q.screen.lt.sm"
           >
-            FARMACIA
+          
+          </div>
+          <img src="../assets/wendys_completo.png" height="80" />
+          <div
+            @click="GoHome"
+            clickable
+            class="text-black q-pt-sm"
+            :hidden="$q.screen.lt.sm"
+          >
+           
           </div>
         </q-toolbar-title>
-        <div class="q-pr-md text-white">
-          {{ fecha }}
+        <div class="text-black">
+          <q-chip size="18px">
+            {{ fecha }}
+          </q-chip>
           <q-chip size="18px" icon="schedule">
             {{ hora }}
           </q-chip>
@@ -23,7 +34,7 @@
               <q-item-label header>Configuración</q-item-label>
               <q-item clickable v-close-popup tabindex="0" to="/perfil">
                 <q-item-section avatar>
-                  <q-avatar color="secondary" text-color="white">
+                  <q-avatar color="secondary" text-color="black">
                     <img :src="icon_user" height="35" width="65" />
                   </q-avatar>
                 </q-item-section>
@@ -54,7 +65,7 @@
         dense
         no-caps
         inline-label
-        class="bg-visuel text-white shadow-2"
+        class="bg-visuel text-black shadow-2"
       >
         <q-tab name="pos" icon="point_of_sale" label="POS">
           <q-menu auto-close>
@@ -214,7 +225,7 @@
       align="center"
       reveal
       elevated
-      class="bg-visuel text-white shadow-2"
+      class="bg-visuel text-black shadow-2"
       small
     >
       <div class="text">ⓒ Visuel Code</div>
@@ -374,14 +385,14 @@ export default {
 
 <style>
 .text-visuel {
-  color: #455a64 !important;
+  color: #030303 !important;
 }
 
 .bg-visuel {
-  background: #455a64 !important;
+  background: #f7f4f4 !important;
 }
 
 .butt-visuel {
-  background: #26a69a !important;
+  background: #000000 !important;
 }
 </style>
