@@ -214,14 +214,14 @@ export default {
 
 <style>
 .text-visuel {
-    color: #455a64 !important;
+  color: #030303 !important;
 }
 
 .bg-visuel {
-    background: #455a64 !important;
+  background: #f7f4f4 !important;
 }
 
 .butt-visuel {
-    background: #26a69a !important;
+  background: #000000 !important;
 }
 </style>
