@@ -1,15 +1,15 @@
 <template>
 <q-layout view="hHh Lpr fFf">
     <q-header elevated>
-        <q-toolbar class="bg-visuel text-white q-px-lg">
-            <img :src="logoIMG" height="35" width="65" />
+        <q-toolbar class="bg-visuel text-black q-px-lg">
+            <img src="../assets/logo_barber-sn-fondo.png" height="80" width="80" />
             <q-toolbar-title>
-                <div class="text-white q-pt-sm" :hidden="$q.screen.lt.sm">
-                    {{ empresa.nombre }}
-                </div>
+                <img src="../assets/wendys_completo.png" height="80" />
             </q-toolbar-title>
-            <div class="q-pr-md text-white">
-                {{ fecha }}
+            <div class="q-pr-md text-black">
+                <q-chip size="18px">
+                    {{ fecha }}
+                </q-chip>
                 <q-chip size="18px" icon="schedule">
                     {{ hora }}
                 </q-chip>
@@ -22,7 +22,7 @@
     <q-dialog v-model="confirm" persistent>
         <q-card>
             <q-card-section class="row items-center">
-                <q-avatar icon="logout" color="secondary" text-color="white" />
+                <q-avatar icon="logout" color="secondary" text-color="black" />
                 <span class="q-ml-sm">¿Estas seguro de cerrar la sesión?</span>
             </q-card-section>
 
@@ -35,7 +35,7 @@
     <q-page-container>
         <router-view />
     </q-page-container>
-    <q-footer align="center" reveal elevated class="bg-visuel text-white shadow-2" small>
+    <q-footer align="center" reveal elevated class="bg-visuel text-black shadow-2" small>
         <div class="text">ⓒ Visuel Code</div>
     </q-footer>
 </q-layout>
@@ -156,14 +156,14 @@ export default {
 
 <style>
 .text-visuel {
-    color: #455a64 !important;
+  color: #030303 !important;
 }
 
 .bg-visuel {
-    background: #455a64 !important;
+  background: #f7f4f4 !important;
 }
 
 .butt-visuel {
-    background: #26a69a !important;
+  background: #000000 !important;
 }
 </style>
