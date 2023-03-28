@@ -2,7 +2,8 @@
 <q-layout view="hHh Lpr fFf">
     <q-header elevated>
         <q-toolbar class="bg-visuel text-white q-px-lg">
-            <img :src="logoIMG" height="35" width="65" />
+            <img src="../assets/logo_barber-sn-fondo.svg" height="35" width="65" />
+            <img src="../assets/wendys_completo.svg" height="35" width="65" />
             <q-toolbar-title>
                 <div class="text-white q-pt-sm" :hidden="$q.screen.lt.sm">
                     {{ empresa.nombre }}

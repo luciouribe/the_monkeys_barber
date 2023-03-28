@@ -2,9 +2,9 @@
 <q-layout view="hHh Lpr fFf">
     <q-header elevated>
         <q-toolbar class="bg-visuel text-black q-px-lg">
-            <img src="../assets/logo_barber-sn-fondo.png" height="80" width="80" />
+            <img src="../assets/logo_barber-sn-fondo.svg" height="80" width="80" />
             <q-toolbar-title>
-                <img src="../assets/wendys_completo.png" height="80" />
+                <img src="../assets/wendys_completo.svg" height="80" />
             </q-toolbar-title>
             <div class="q-pr-md text-black">
                 <q-chip size="18px">

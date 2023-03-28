@@ -2,7 +2,8 @@
   <q-layout view="hHh Lpr fFf">
     <q-header elevated>
       <q-toolbar class="bg-white text-dark q-px-lg">
-        <img src="../assets/images/icon.png" height="35" width="65" />
+        <img src="../assets/logo_barber-sn-fondo.svg" height="35" width="65" />
+        <img src="../assets/wendys_completo.svg" height="35" width="65" />
         <q-toolbar-title>
           <div class="text-grey-8 q-pt-sm" :hidden="$q.screen.lt.sm">
             Visuel Code

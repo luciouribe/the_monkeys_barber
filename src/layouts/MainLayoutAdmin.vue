@@ -2,7 +2,7 @@
   <q-layout view="hHh Lpr fFf">
     <q-header elevated>
       <q-toolbar class="bg-visuel text-black q-px-lg">
-        <img src="../assets/logo_barber-sn-fondo.png" height="80" />
+        <img src="../assets/logo_barber-sn-fondo.svg" height="80" />
         <q-toolbar-title>
           <div
             @click="GoHome"
@@ -12,7 +12,7 @@
           >
           
           </div>
-          <img src="../assets/wendys_completo.png" height="80" />
+          <img src="../assets/wendys_completo.svg" height="80" />
           <div
             @click="GoHome"
             clickable

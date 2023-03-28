@@ -1,7 +1,7 @@
 <template>
 <div class="q-pa-md text-center" style="font-size: 18px; width:110%">
- <img src="../../assets/logo_barber-sn-fondo.png" height="70" width="70" />
- <img src="../../assets/wendys_completo.png" height="70" width="70"/><br>
+ <img src="../../assets/logo_barber-sn-fondo.svg" height="70" width="70" />
+ <img src="../../assets/wendys_completo.svg" height="70" width="70"/><br>
 </div>
 <div class="text-center" style="font-size: 10px;">
     <p >C. Bosques de México 323, Los Heroes Tecamac, 55764 Ojo de Agua, Méx.</p>
@@ -19,7 +19,7 @@
         </p>
     </div>
     Total: <b v-for="i in 24">-</b> ${{orden.monto_total}}<br>
-    Cambio: <b v-for="i in 24">-</b> ${{orden.monto_total-orden.monto_pagado}}<br><br>
+    Cambio: <b v-for="i in 24">-</b> ${{ orden.monto_pagado - orden.monto_total}}<br><br>
     <p style="line-height: 200%">{{empresa.footer_ticket}}</p>
 </div>
 <br><br>
