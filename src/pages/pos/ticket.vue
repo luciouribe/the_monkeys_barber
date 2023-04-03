@@ -1,28 +1,49 @@
 <template>
-<div class="q-pa-md text-center" style="font-size: 18px; width:110%">
- <img src="../../assets/logo_barber-sn-fondo.svg" height="70" width="70" />
- <img src="../../assets/wendys_completo.svg" height="70" width="70"/><br>
-</div>
-<div class="text-center" style="font-size: 10px;">
-    <p >C. Bosques de México 323, Los Heroes Tecamac, 55764 Ojo de Agua, Méx.</p>
-    <p>55 3763 9638</p>
-    {{orden.nombre}}<br>
-    {{orden.fecha_orden}}
-</div>
-<div class="q-pa-md text-center" style="font-size: 10px; width:100%">
-    <div v-for="(item, index) in lineas">
-        <p v-if="String(item.cantidad).concat(' ',item.nombre).slice(0, 16).length==16">
-            {{ String(item.cantidad).concat(' ',item.nombre).slice(0, 16) }} <b v-for="i in 5">-</b> ${{item.precio}}</p>
-        <p v-else="">
-            {{ String(item.cantidad).concat(' ',item.nombre).slice(0, 16) }}
-            <b v-for="i in Number(16)-Number(String(item.cantidad).concat(' ',item.nombre).length)+15">-</b> ${{item.precio}}
-        </p>
+    <div class="q-pa-md text-center" style="font-size: 18px; width:100%">
+        <img src="../../assets/logo_barber-sn-fondo.svg" height="100" width="70" />
+        <img src="../../assets/wendys_completo.svg" height="100" width="70"/><br>
     </div>
-    Total: <b v-for="i in 24">-</b> ${{orden.monto_total}}<br>
-    Cambio: <b v-for="i in 24">-</b> ${{ orden.monto_pagado - orden.monto_total}}<br><br>
-    <p style="line-height: 200%">{{empresa.footer_ticket}}</p>
-</div>
-<br><br>
+    <div class="text-center" style="font-size: 10px; font-family: Courier New;">
+        <p><strong>C. Bosques de México 323, Los Heroes Tecamac, 55764 Ojo de Agua, Méx.</strong></p>
+        <p><strong>Citas: 55 3763 9638</strong></p>
+        <strong>Folio: {{orden.nombre}}</strong><br>
+    </div>
+        <div class="row">
+            <div class="col-2 text-left">
+                <div style="font-size: 10px; font-family: Courier New;">
+                    <div v-for="(item, index) in lineas" class="col-1 q-pa-sm q-mx-xs">
+                        <strong>{{ item.cantidad }}</strong>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 text-center">
+                <div style="font-size: 10px; font-family: Courier New;">
+                    <div v-for="(item, index) in lineas" class="col-6 q-pa-sm q-mx-xs">
+                        <strong>{{item.nombre}}</strong>
+                    </div>
+                </div>
+            </div>
+
+                <div class="col-3 text-right">
+                    <div style="font-size: 10px; font-family: Courier New;">
+                        <div v-for="(item, index) in lineas" class="col-3 q-pa-sm q-mx-xs">
+                            <strong>$ {{ item.precio }}</strong>
+                        </div>
+                </div>
+            </div>
+        </div>
+    <div class="col-8 text-center" style="font-size: 10px; font-family: Courier New;">
+        <strong>Total: ${{orden.monto_total}}<br></strong>
+        <strong>Efectivo: ${{orden.monto_pagado}}<br></strong>
+        <strong>Cambio: ${{ orden.monto_pagado - orden.monto_total}}</strong>
+    </div>
+    <div class="col-6 text-center" style="font-size: 10px; font-family: Courier New;">
+        <strong>
+            <p>
+                {{empresa.footer_ticket}} <br>
+                {{orden.fecha_orden}}</p></strong>
+    </div>
 </template>
 
 <script>
