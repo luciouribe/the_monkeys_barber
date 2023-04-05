@@ -1,8 +1,8 @@
 <template>
   <q-page padding>
-    <div class="bg-visuel text-white rounded-borders">
+    <div class="bg-visuel text-black rounded-borders">
       <q-toolbar inset>
-        <q-breadcrumbs active-color="white" style="font-size: 15px">
+        <q-breadcrumbs active-color="black" style="font-size: 15px">
           <q-breadcrumbs-el
             icon="inventory_2"
             to="/admin/empleados"
@@ -83,9 +83,6 @@
                   v-model="row.puesto"
                   label="Puesto *"
                   class="q-my-md"
-                  :rules="[
-                    (val) => (val && val.length > 0) || 'Please type something',
-                  ]"
                 />
               </q-card-section>
               <q-separator vertical />
@@ -97,10 +94,6 @@
                   label="Correo *"
                   type="email"
                   lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val !== null && val !== '') || 'Please type something',
-                  ]"
                 />
                 <q-input
                   :readonly="edit"
@@ -110,10 +103,6 @@
                   class="q-my-md"
                   type="number"
                   lazy-rules
-                  :rules="[
-                    (val) =>
-                      (val !== null && val !== '') || 'Please type something',
-                  ]"
                 />
                 <q-input
                   :readonly="edit"
@@ -121,9 +110,6 @@
                   v-model="row.direccion"
                   label="Dirección *"
                   class="q-my-md"
-                  :rules="[
-                    (val) => (val && val.length > 0) || 'Please type something',
-                  ]"
                 />
                 <q-select
                   filled
@@ -132,9 +118,6 @@
                   map-options
                   emit-value
                   class="q-my-md"
-                  :rules="[
-                    (val) => (val && val.length > 0) || 'Please select something',
-                  ]"
                   :options="horarios"
                   label="Horario *"
                 />
@@ -145,9 +128,6 @@
                   map-options
                   emit-value
                   class="q-my-md"
-                  :rules="[
-                    (val) => (val && val.length > 0) || 'Please select something',
-                  ]"
                   :options="usuarios"
                   label="Usuario *"
                 />
@@ -193,7 +173,7 @@
                   @click="updateOn"
                   v-show="edit"
                   label="Editar"
-                  color="visuel"
+                  color="red"
                   icon="mode_edit"
                   size="sm"
                 >
@@ -312,7 +292,7 @@ export default {
                     sortable: true,
                 },
             ],
-      track_visibility: ["nombres", "puesto", "apellido_paterno", "apellido_materno", "correo", "tel", "direccion"],
+      track_visibility: ["nombres", "apellido_paterno", "apellido_materno"],
       uom: [],
       commits: [],
       commitspre: [],
@@ -402,13 +382,7 @@ export default {
       if (
         !this.row.nombres ||
         !this.row.apellido_paterno ||
-        !this.row.apellido_materno ||
-        !this.row.puesto ||
-        !this.row.ubicacion ||
-        !this.row.direccion ||
-        !this.row.correo ||
-        !this.row.horaario_id ||
-        !this.row.usuario_id
+        !this.row.apellido_materno
       ) {
         Notify.create({
           type: "warning",
@@ -420,35 +394,34 @@ export default {
     },
 
     saveNew() {
-      let user_id = sessionStorage.getItem("userId");
+      let userId = sessionStorage.getItem("userId");
       let r_object = Track.TrackVisibility(
-        "post",
-        this.track_visibility,
-        this.row
-      );
+                "post",
+                this.track_visibility,
+                this.row
+            );
       let password = `${this.row.nombres}%${this.row.apellido_paterno.slice(0, 3)}`;
       let formData = new FormData();
-      formData.append("usuario_id", this.row.usuario_id);
+      formData.append("usuario_id", userId);
       formData.append("nombres", this.row.nombres);
       formData.append("apellido_paterno", this.row.apellido_paterno);
       formData.append("apellido_materno", this.row.apellido_materno);
-      formData.append("puesto", this.row.puesto);
+      formData.append("puesto", "");
       formData.append("departamento", "");
       formData.append("area", "");
       formData.append("ubicacion", this.row.ubicacion);
       formData.append("rfc", "");
-      formData.append("direccion", this.row.direccion);
+      formData.append("direccion", "");
       formData.append("tel_trabajo", "");
-      formData.append("correo", this.row.correo);
-      formData.append("tel", this.row.tel);
+      formData.append("correo", "");
+      formData.append("tel", "");
       formData.append("image", "");
       formData.append("horaario_id", this.row.horaario_id);
       formData.append("state", 'open');
       formData.append("email_verified_at", "");
       formData.append("password", password);
-      formData.append("remember_token", "");
       formData.append("r_object", JSON.stringify(r_object));
-      formData.append("user_id", user_id);
+      formData.append("user_id", userId);
       this.postEmpleado(formData)
         .then((response) => {
           this.commits = response.r_object.commits;
@@ -458,9 +431,6 @@ export default {
               id: response.id,
             },
           });
-          this.edit = true;
-          this.savepost = true;
-          this.saveput = true;
         })
         .catch((error) => {
           Notify.create({
@@ -472,7 +442,7 @@ export default {
     },
 
     save() {
-      let user_id = sessionStorage.getItem("userId");
+      let userId = sessionStorage.getItem("userId");
       let r_object = Track.TrackVisibility(
         "put",
         this.track_visibility,
@@ -480,35 +450,40 @@ export default {
         this.row
       );
       let password = `${this.row.nombres}%${this.row.apellido_paterno.slice(0, 3)}`;
-      console.log(password)
       let formData = new FormData();
       formData.append("id", this.row.id);
-      formData.append("usuario_id", this.row.usuario_id);
+      formData.append("usuario_id", userId);
       formData.append("nombres", this.row.nombres);
       formData.append("apellido_paterno", this.row.apellido_paterno);
       formData.append("apellido_materno", this.row.apellido_materno);
-      formData.append("puesto", this.row.puesto);
+      formData.append("puesto", "");
       formData.append("departamento", "");
       formData.append("area", "");
-      formData.append("ubicacion", this.row.ubicacion);
+      formData.append("ubicacion", "");
       formData.append("rfc", "");
-      formData.append("direccion", this.row.direccion);
+      formData.append("direccion", "");
       formData.append("tel_trabajo", "");
-      formData.append("correo", this.row.correo);
-      formData.append("tel", this.row.tel);
+      formData.append("correo", "");
+      formData.append("tel", "");
       formData.append("image", "");
       formData.append("horaario_id", this.row.horaario_id);
       formData.append("state", 'open');
       formData.append("email_verified_at", "");
       formData.append("password", password);
-      formData.append("remember_token", "");
       formData.append("r_object", JSON.stringify(r_object));
-      formData.append("user_id", user_id);
+      formData.append("user_id", userId);
       this.putEmpleado(formData)
         .then((response) => {
-          this.commits = response[0].r_object.commits;
+          this.commits = response.r_object.commits;
+          this.$router.push({
+          name: "empleado_detalle",
+          params: {
+            id: response.id,
+          },
+        });
           this.edit = true;
           this.saveput = true;
+          this.savepost = true;
         })
         .catch((error) => {
           Notify.create({
@@ -520,7 +495,7 @@ export default {
     },
     deleteItem() {
       let formData = new FormData();
-      let user_id = sessionStorage.getItem("userId");
+      let userId = sessionStorage.getItem("userId");
       formData.append("id", this.row.id);
       formData.append("user_id", user_id);
       this.deleteProducto(formData)
@@ -540,7 +515,7 @@ export default {
     },
     createOn() {
       this.savepost = false;
-      this.rowspre = this.row;
+      this.rowspre = this.rows;
       this.commitspre = this.commits;
       this.row = {
         id: "",
@@ -591,7 +566,7 @@ export default {
       let formData = {
         r_object: JSON.stringify(r_object),
         user_id: user_id,
-        id: this.rows.id,
+        id: this.row.id,
       };
       this.putRobject(formData)
         .then((response) => {
