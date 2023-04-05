@@ -1,10 +1,13 @@
 <template>
-    <div class="q-pa-md text-center" style="font-size: 18px; width:100%">
+    <div class="text-center" style="font-size: 18px; width:100%">
         <img src="../../assets/logo_barber-sn-fondo.svg" height="100" width="70" />
         <img src="../../assets/wendys_completo.svg" height="100" width="70"/><br>
     </div>
     <div class="text-center" style="font-size: 10px; font-family: Courier New;">
-        <p><strong>C. Bosques de México 323, Los Heroes Tecamac, 55764 Ojo de Agua, Méx.</strong></p>
+        <p class="text-center">
+            <strong>C. Bosques de México 323,<br> 
+                    Los Heroes Tecamac, 55764<br> 
+                     Ojo de Agua, Méx.</strong></p>
         <p><strong>Citas: 55 3763 9638</strong></p>
         <strong>Folio: {{orden.nombre}}</strong><br>
     </div>
@@ -17,7 +20,7 @@
                 </div>
             </div>
 
-            <div class="col-6 text-center">
+            <div class="col-6 text-justify">
                 <div style="font-size: 10px; font-family: Courier New;">
                     <div v-for="(item, index) in lineas" class="col-6 q-pa-sm q-mx-xs">
                         <strong>{{item.nombre}}</strong>
