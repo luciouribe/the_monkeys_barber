@@ -1,18 +1,39 @@
 <template>
-<div class="q-pa-md">
-    <q-table title="Treats" :filter="filter" :rows="rows_productos" :columns="columns_productos" color="primary" row-key="name">
-        <template v-slot:top-left>
-            <q-input ref="searchfield" rounded filled dense debounce="300" v-model="filter" placeholder="Buscar productros">
+    <div class="q-pa-md">
+        <q-table
+            title="Treats"
+            :filter="filter" 
+            rows="rows_productos" 
+            columns="columns_productos"
+            color="primary"
+            row-key="name">
+            <template v-slot:top-left>
+                <q-input
+                    ref="searchfield"
+                    rounded
+                    filled
+                    dense
+                    debounce="300"
+                    v-model="filter"
+                    placeholder="Buscar productros"
+                >
                 <template v-slot:append>
                     <q-icon name="search" />
                 </template>
-            </q-input>
-        </template>
-        <template v-slot:top-right>
-            <q-btn color="primary" flat icon-right="archive" label="Exportar a csv" no-caps @click="exportTable" />
-        </template>
-    </q-table>
-</div>
+                </q-input>
+            </template>
+            <template v-slot:top-right>
+                <q-btn
+                    color="primary"
+                    flat
+                    icon-right="archive"
+                    label="Exportar a csv"
+                    no-caps
+                    @click="exportTable"
+                />
+            </template>
+        </q-table>
+    </div>
 </template>
 
 <script>
