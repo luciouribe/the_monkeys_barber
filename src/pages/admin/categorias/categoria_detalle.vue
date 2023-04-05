@@ -1,8 +1,8 @@
 <template>
   <q-page padding>
-    <div class="bg-visuel text-white rounded-borders">
+    <div class="bg-visuel text-black rounded-borders">
       <q-toolbar inset>
-        <q-breadcrumbs active-color="white" style="font-size: 15px">
+        <q-breadcrumbs active-color="black" style="font-size: 15px">
           <q-breadcrumbs-el
             icon="inventory_2"
             to="/admin/categoria_producto"
@@ -121,7 +121,7 @@
                   v-show="edit && setVisible('pos.categorias.edit')"
                   @click="updateOn"
                   label="Editar"
-                  color="visuel"
+                  color="red"
                   icon="mode_edit"
                   size="sm"
                 >
