@@ -4,5 +4,6 @@ export default function() {
         usuario: [],
         empresas: [],
         empresa: [],
+        empleados: [],
     };
 }
