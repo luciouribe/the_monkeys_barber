@@ -1,8 +1,8 @@
 <template>
 <q-page padding>
-    <div class="bg-visuel text-white rounded-borders">
+    <div class="bg-visuel text-black rounded-borders">
         <q-toolbar inset>
-            <q-breadcrumbs active-color="white" style="font-size: 15px">
+            <q-breadcrumbs active-color="black" style="font-size: 15px">
                 <q-breadcrumbs-el icon="inventory_2" to="/admin/inv_productos" label="Productos" />
                 <q-breadcrumbs-el :label="row.nombre" />
             </q-breadcrumbs>
@@ -47,10 +47,10 @@
                             <q-input :readonly="edit" filled v-model="row.precio" label="Precio *" type="number" prefix="$" lazy-rules :rules="[
                     (val) => (val && val.length > 0) || 'Please type something',
                   ]" />
-                            <q-input :readonly="edit" filled v-model="row.proveedor_ref" label="Proveedor" class="q-my-md" />
-                            <q-input :readonly="edit" filled v-model="row.descripcion" label="Descripcion" class="q-my-md" />
-                            <q-input :readonly="edit" filled v-model="row.descripcion_compra" label="Descripcion de compra" class="q-my-md" />
-                            <q-input :readonly="edit" filled v-model="row.descripcion_venta" label="Descripcion de venta" class="q-my-md" />
+                
+                            {{ row }}
+                            
+                            <q-select filled :readonly="edit" v-model="row.proveedor_ref" map-options emit-value label="Barbero" :options="empleados" class="q-my-md" />
                         </q-card-section>
                         <q-separator vertical />
                         <q-card-section class="col-6">
@@ -82,7 +82,7 @@
                             </q-btn>
                             <q-btn @click="createOf" v-show="!edit" label="Descartar" color="red-9" icon="delete" size="sm">
                             </q-btn>
-                            <q-btn @click="updateOn" v-show="edit" label="Editar" color="visuel" icon="mode_edit" size="sm">
+                            <q-btn @click="updateOn" v-show="edit" label="Editar" color="red" icon="mode_edit" size="sm">
                             </q-btn>
                         </div>
                     </div>
@@ -133,7 +133,7 @@
                     </q-avatar>
                 </template>
                 <template v-slot:append>
-                    <q-btn round dense flat icon="send" />
+                    <q-btn color="pink" round dense flat icon="send" />
                 </template>
             </q-input>
         </div>
@@ -195,6 +195,7 @@ export default {
             ],
             track_visibility: ["nombre", "barcode", "tipo", "uom", "precio"],
             categorias: [],
+            empleados: [],
             uom: [],
             commits: [],
             commitspre: [],
@@ -219,6 +220,7 @@ export default {
         this.getCategorias();
         this, this.getUOM();
         this.fetchProductoId();
+        this.getEmpleados();
     },
     computed: {
         getProductos() {
@@ -249,6 +251,23 @@ export default {
             "putProducto",
             "deleteProducto",
         ]),
+        ...mapActions("asistencias", ["fetchEmpleados"]),
+        getEmpleados() {
+            this.fetchEmpleados()
+            .then((resp) => {
+                    resp.forEach(this.setEmpleados);
+                })
+                .catch((error) => {
+                    console.error(error);
+                });
+        },
+        setEmpleados(element) {
+            this.empleados.push({
+                value: element.id,
+                label: element.nombres,
+            });
+        },
+
         fetchProductoId() {
             if (this.$route.params.action == "new") {
                 this.createOn();
@@ -321,9 +340,10 @@ export default {
             if (
                 !this.row.nombre ||
                 !this.row.precio ||
-                !this.row.proveedor_ref ||
+               
                 !this.row.barcode ||
                 !this.row.categoria_id ||
+                
                 !this.row.uom_id ||
                 !this.row.venta_ok ||
                 !this.row.compra_ok ||
@@ -357,7 +377,7 @@ export default {
             formData.append("nombre", this.row.nombre);
             formData.append("default_codigo", 0);
             formData.append("codigo", 0);
-            formData.append("proveedor_ref", this.row.proveedor_ref);
+            formData.append("proveedor_ref", "");
             formData.append("active", true);
             formData.append("barcode", this.row.barcode.toUpperCase());
             formData.append("producto", this.file);
@@ -369,6 +389,7 @@ export default {
             formData.append("descripcion_compra", descripcion_compra);
             formData.append("descripcion_venta", descripcion_venta);
             formData.append("categoria_id", this.row.categoria_id);
+            formData.append("empleado_id", this.row.empleado_id);
             formData.append("tipo", 'almacenable');
             formData.append("volumen", 0);
             formData.append("peso", 0);
@@ -422,7 +443,7 @@ export default {
             formData.append("producto", this.file);
             formData.append("default_codigo", 0);
             formData.append("codigo", 0);
-            formData.append("proveedor_ref", this.row.proveedor_ref);
+            formData.append("proveedor_ref", this.row.empleado_id);
             formData.append("active", true);
             formData.append("barcode", this.row.barcode.toUpperCase());
             formData.append("precio", this.row.precio);
@@ -433,6 +454,7 @@ export default {
             formData.append("descripcion_compra", descripcion_compra);
             formData.append("descripcion_venta", descripcion_venta);
             formData.append("categoria_id", this.row.categoria_id);
+            formData.append("empleado_id", this.row.empleado_id);
             formData.append("tipo", 'almacenable');
             formData.append("volumen", 0);
             formData.append("peso", 0);
